@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../../contexts/auth'
 
 import './signin.css'
 import logo from '../../assets/logo.png'
@@ -7,10 +8,15 @@ import logo from '../../assets/logo.png'
 function SignIn() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const { signIn, loadingAuth } = useContext(AuthContext)
 
-    function handleSubmit(e){
+    function handleSubmit(e) {
         e.preventDefault();
-        alert("Submit")
+
+        if (email !== '' && password !== '') {
+            signIn(email, password)
+        }
+
     }
 
     return (
@@ -22,9 +28,9 @@ function SignIn() {
 
                 <form onSubmit={handleSubmit}>
                     <h1>Entrar</h1>
-                    <input type="text"  value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Digite seu email. ex: suporte@orei.com.br" />
+                    <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Digite seu email. ex: suporte@orei.com.br" />
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Digite uma senha forte" />
-                    <button type='submit'>Entrar</button>
+                    <button type='submit'>{loadingAuth ? 'Carregando...' : 'Entrar'}</button>
                 </form>
 
                 <Link to="/register">Não tem uma conta? Clique aqui.</Link>

@@ -8,7 +8,7 @@ function SignUp() {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const { signUp } = useContext(AuthContext)
+    const { signUp, loadingAuth } = useContext(AuthContext)
 
     function handleSubmit(e){
         e.preventDefault();
@@ -30,7 +30,7 @@ function SignUp() {
                     <input type="text"  value={name} onChange={(e) => setName(e.target.value)} placeholder="Digite seu nome" />
                     <input type="text"  value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Digite seu email. ex: suporte@orei.com.br" />
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Digite uma senha forte" />
-                    <button type='submit'>Cadastrar</button>
+                    <button type='submit'>{loadingAuth ? 'Carregando...' : 'Cadastrar'}</button>
                 </form>
 
                 <Link to="/">Já tem uma conta? Clique aqui.</Link>
